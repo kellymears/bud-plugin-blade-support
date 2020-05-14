@@ -1,6 +1,6 @@
 module.exports = {
-  name: 'bud-plugin-blade',
-  source: '@tinypixelco/bud-plugin-blade',
+  name: 'bud-plugin-blade-support',
+  source: '@tinypixelco/bud-plugin-blade-support',
   description: 'Blade support',
   actions: [
     {
@@ -8,6 +8,10 @@ module.exports = {
       repo: 'packagist',
       dev: false,
       pkgs: ['eftec/bladeone'],
+    },
+    {
+      action: 'scaffold',
+      paths: ['storage', 'storage/cache'],
     },
     {
       action: 'template',
