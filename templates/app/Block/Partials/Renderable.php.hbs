@@ -1,0 +1,71 @@
+<?php
+
+namespace {{pascalcase namespace}}\Block\Partials;
+
+use eftec\bladeone\BladeOne as Blade;
+use Psr\Container\ContainerInterface;
+
+/**
+ * Renderable block
+ */
+trait Renderable {
+      /** @var \WP_Block_Type\render_callback */
+      public $render_callback;
+
+      /** @var attributes */
+      public $attributes;
+
+      /** @var bool */
+      protected $hasView;
+
+      /** @var string */
+      protected $view;
+
+      /** @var string */
+      protected $viewPath;
+
+      /**
+       * Has view.
+       *
+       * @return bool
+       */
+      public function hasView(): bool
+      {
+          $name = explode('/', $this->getName())[1];
+          $this->view = "/{$name}/render.blade.php";
+          $this->viewPath = $this->bud->get('plugin.path.src.blocks') . $this->view;
+
+          return $this->hasView = realpath($this->viewPath) ? true : false;
+      }
+
+      /**
+       * Set view.
+       *
+       * @return void
+       */
+      public function setView(): void
+      {
+            $this->bud->set('view', function (ContainerInterface $bud) {
+                return new Blade(
+                    $bud->get('plugin.path.src.blocks'),
+                    $bud->get('plugin.path.storage.cache')
+                );
+            });
+
+            $this->render_callback = [$this, 'renderView'];
+      }
+
+      /**
+       * Render view.
+       *
+       * @param  array
+       * @return string
+       */
+      public function renderView(array $attributes): string
+      {
+            return $this->bud->get('view')->run(
+                $this->view,
+                ['attr' => (object) $attributes]
+            );
+      }
+}

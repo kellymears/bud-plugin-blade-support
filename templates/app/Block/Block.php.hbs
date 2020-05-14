@@ -1,0 +1,26 @@
+<?php
+
+namespace {{pascalcase namespace}}\Block;
+
+use {{pascalcase namespace}}\Block\Base\BaseBlock;
+use {{pascalcase namespace}}\Block\Partials\Renderable;
+use {{pascalcase namespace}}\Block\Contracts\RenderableInterface;
+
+/**
+ * Block class with Blade support.
+ */
+class Block extends BaseBlock implements RenderableInterface
+{
+    use Renderable;
+
+    /**
+     * Overload register method.
+     *
+     * @return void
+     */
+    public function register(): void
+    {
+        $this->hasView() && $this->setView();
+        register_block_type($this);
+    }
+}
