@@ -1,6 +1,6 @@
 {
   "name": "@tinypixelco/bud-plugin-blade-support",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Blade support for Bud blocks.",
   "main": "index.js",
   "author": "Kelly Mears <developers@tinypixel.dev>",
